@@ -340,7 +340,7 @@
 			}
 			
 		},
-		checkValue: function(Times){
+		checkValue: function(Times){ // проверка значений кнопок в заданном фрагменте текста
 			var set = this,// Проверяем все значения тулбара при событиях
 				_events = 'mouseup.check mousedown.check keyup.check'; // События бля проверки тулбара
 			$(set.contentWin(Times)).off(_events).on(_events, function(){
@@ -356,18 +356,19 @@
 	  			ed = set.edit,
 		  		edit = ed[Times].editor,
 		  		text = ed[Times].text;
-
+			//Создаем тулбар
 	  		edit.attr({ 'data-editor-id' : Times})
 	  			.html(set.patterns({name: "TOOLBAR"}))
 			 	.find('.toolbar')
 			 		.append(set.patterns({name: "CREATE-PANEL-TOOLBAR" }) )
-
+			// мод редактирования контента
 			iDoc = edit.find('iframe').get(0).contentWindow.document
 			iDoc.open();  
 			iDoc.write(set.patterns({name: "CREATE-IFRAME-BODY", TEXT: text } ));
 			iDoc.close();
  			
  			iDoc.designMode = 'on'
+ 			
 			set.handlerToolbar(); // Установка тулбара
 			set.checkValue(Times); // и значений кнопок
 
@@ -377,8 +378,8 @@
 	};
 
 	if (options){ 
-        $.extend(settings, options); // при этом важен порядок совмещения
-    }
+        	$.extend(settings, options); // при этом важен порядок совмещения
+    	}
 
 
  	return this.each(function() {
